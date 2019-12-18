@@ -1,0 +1,83 @@
+DROP DATABASE dinmore;
+
+CREATE DATABASE dinmore;
+
+USE dinmore;
+
+CREATE TABLE employee(
+e_id INT NOT NULL AUTO_INCREMENT,
+e_name VARCHAR(30),
+e_password VARCHAR(20),
+status VARCHAR(20),
+CONSTRAINT PRIMARY KEY(e_id)
+);
+
+INSERT INTO employee VALUES(0,"shihan","1234","Tel Operator");
+INSERT INTO employee VALUES(0,"sasanka","5678","Tel Operator");
+
+CREATE TABLE cheff(
+e_id INT NOT NULL,
+totalOrders INT,
+totalQty INT,
+date DATE,
+totalTime VARCHAR(40),
+CONSTRAINT PRIMARY KEY(e_id),
+CONSTRAINT FOREIGN KEY(e_id) REFERENCES employee(e_id)
+ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE orders(
+oid INT NOT NULL AUTO_INCREMENT,
+e_id INT NOT NULL,
+customer_name VARCHAR(40),
+customer_contact INT,
+food VARCHAR(30),
+qty INT,
+time VARCHAR(40),
+date DATE,
+CONSTRAINT PRIMARY KEY(oid),
+CONSTRAINT FOREIGN KEY(e_id) REFERENCES employee(e_id)
+ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+CREATE TABLE finish(
+oid INT NOT NULL AUTO_INCREMENT,
+e_id INT NOT NULL,
+customer_name VARCHAR(40),
+customer_contact INT,
+food VARCHAR(30),
+qty INT,
+duration VARCHAR(40),
+CONSTRAINT PRIMARY KEY(oid,e_id),
+CONSTRAINT FOREIGN KEY(oid) REFERENCES orders(oid)
+ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT FOREIGN KEY(e_id) REFERENCES employee(e_id)
+ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+INSERT INTO orders VALUES(0,1,"Pavithra",1932,"Submarine",231,null,null);
+INSERT INTO orders VALUES(0,1,"Surad",132,"Submarine",31,null,null);
+INSERT INTO orders VALUES(0,1,"Harith",19332,"Submarine",2331,null,null);
+INSERT INTO orders VALUES(0,1,"Kalpa",192,21,"Submarine",null,null);
+INSERT INTO orders VALUES(0,1,"Janith",193,331,"Submarine",null,null);
+INSERT INTO orders VALUES(0,1,"Pavithra",19322,"Submarine",2231,null,null);
+INSERT INTO orders VALUES(0,1,"Shihan",192332,"Submarine",23231,null,null);
+INSERT INTO orders VALUES(0,1,"Ashen",191132,"Submarine",23331,null,null);
+INSERT INTO orders VALUES(0,1,"Dhan",19352,"Submarine",2531,null,null);
+INSERT INTO orders VALUES(0,1,"Shanaka",1932,"Submarine",2231,null,null);
+
+
+INSERT INTO cheff VALUES(1,1,4,"12.12.2012",12);
+INSERT INTO cheff VALUES(2,4,13,"12.12.2012",12);
+INSERT INTO cheff VALUES(2,1,13,"12.12.2012",23);
+INSERT INTO cheff VALUES(1,1,4,"12.12.2012",12);
+INSERT INTO cheff VALUES(2,1,13,"12.12.2012",12);
+
+
+INSERT INTO cheff VALUES(2,1,4,"12.12.2017",null);
+INSERT INTO cheff VALUES(3,2,3,"12.12.2017",null);
+
+
